@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leaflet Map Example</title>
+  <!-- Include Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <!-- Include your custom CSS -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* Additional inline styles if needed */
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <!-- Include Leaflet JavaScript -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script>
+    // Initialize the map
+    var map = L.map('map').setView([35.736660814546006, -5.894838286018258], 10);
+
+    // Add the tile layer (OpenStreetMap)
+    L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.{ext}', {
+	minZoom: 0,
+	maxZoom: 50,
+	ext: 'png'
+    // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Add a marker to the map
+    var marker = L.marker([35.736660814546006, -5.894838286018258]).addTo(map)
+      .bindPopup('Point of Interest<br>Latitude: 35.736660814546006<br>Longitude: -5.894838286018258')
+      .openPopup();
+
+    // Add zoom controls
+    L.control.zoom({
+      position: 'topright'
+    }).addTo(map);
+
+    // Center the map on the marker when it's clicked
+    marker.on('click', function() {
+      map.setView(marker.getLatLng(), 15);
+    });
+  </script>
+</body>
+</html>
